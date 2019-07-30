@@ -33,6 +33,7 @@ case class DateHistogramValueSource(override val name: String,
 case class CompositeAggregation(name: String,
                                 sources: Seq[ValueSource] = Nil,
                                 size: Option[Int] = None,
+                                after: Map[String, Any] = Map.empty,
                                 subaggs: Seq[AbstractAggregation] = Nil,
                                 metadata: Map[String, AnyRef] = Map.empty)
   extends Aggregation {
@@ -42,6 +43,8 @@ case class CompositeAggregation(name: String,
   def sources(sources: Seq[ValueSource]): CompositeAggregation = copy(sources = sources)
 
   def size(size: Int): CompositeAggregation = copy(size = size.some)
+
+  def after(map: Map[String, Any]): CompositeAggregation = copy(after = map)
 
   override def subAggregations(aggs: Iterable[AbstractAggregation]): T = copy(subaggs = aggs.toSeq)
 

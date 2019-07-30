@@ -31,6 +31,11 @@ object CompositeAggregationBuilder {
       builder.endObject()
     })
     builder.endArray()
+    if (agg.after.nonEmpty) {
+      builder.startObject("after")
+      agg.after.foreach { case (key, value) => builder.autofield(key, value) }
+      builder.endObject()
+    }
     builder.endObject()
 
     SubAggsBuilderFn(agg, builder)
